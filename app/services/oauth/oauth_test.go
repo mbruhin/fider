@@ -95,7 +95,7 @@ func TestGetAuthURL_Custom(t *testing.T) {
 				Provider:     q.Provider,
 				ClientID:     "CU_CL_ID",
 				Scope:        "profile email",
-				AuthorizeURL: "https://example.org/oauth/authorize",
+				AuthorizeURL: "https://example.org/oauth/authorize?idp=test",
 			}
 		}
 		return nil
@@ -110,7 +110,7 @@ func TestGetAuthURL_Custom(t *testing.T) {
 
 	err := bus.Dispatch(ctx, authURL)
 	Expect(err).IsNil()
-	Expect(authURL.Result).Equals("https://example.org/oauth/authorize?client_id=CU_CL_ID&redirect_uri=http%3A%2F%2Flogin.test.fider.io%3A3000%2Foauth%2F_custom%2Fcallback&response_type=code&scope=profile+email&state=http%3A%2F%2Fexample.org%7C456")
+	Expect(authURL.Result).Equals("https://example.org/oauth/authorize?client_id=CU_CL_ID&idp=test&redirect_uri=http%3A%2F%2Flogin.test.fider.io%3A3000%2Foauth%2F_custom%2Fcallback&response_type=code&scope=profile+email&state=http%3A%2F%2Fexample.org%7C456")
 }
 
 func TestParseProfileResponse_AllFields(t *testing.T) {
